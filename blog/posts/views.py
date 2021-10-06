@@ -1,7 +1,22 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from .forms import PostForm
+from .models import Post
+
 # Create your views here.
 
+
+
+
+
+def detail(request, id):
+    post = get_object_or_404(Post, pk = id) #pk is primary key
+    return render(request, "posts/detail.html", {"post": post })
+
+
+def delete(request, id):
+    post = get_object_or_404(Post, pk = id)
+    post.delete()
+    return redirect("/")
 
 def new(request):
     if request.method == "POST":
