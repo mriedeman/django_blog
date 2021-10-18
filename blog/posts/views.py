@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import PostForm
 from .models import Post
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -18,6 +18,7 @@ def delete(request, id):
     post.delete()
     return redirect("/")
 
+@login_required()
 def new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
